@@ -1,0 +1,50 @@
+.radioApp {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    background: #0a0e0a;
+    /* Deep dark charcoal for the dashboard */
+    color: var(--rw-white);
+    overflow: hidden;
+    font-family: var(--font-clash-display), sans-serif;
+}
+
+.mainContent {
+    flex: 1;
+    height: 100vh;
+    overflow-y: auto;
+    padding: var(--space-xl);
+    position: relative;
+    /* Dark magical gradient background */
+    background: linear-gradient(135deg, rgba(8, 20, 10, 1) 0%, rgba(10, 15, 10, 1) 100%);
+}
+
+.mainContent::before {
+    content: '';
+    position: fixed;
+    top: -20%;
+    left: 20%;
+    width: 60%;
+    height: 60%;
+    background: radial-gradient(circle, rgba(var(--rw-gold-rgb), 0.05) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Custom Webkit scrollbar for dark mode */
+.mainContent::-webkit-scrollbar {
+    width: 8px;
+}
+
+.mainContent::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.mainContent::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+.mainContent::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
