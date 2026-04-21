@@ -44,6 +44,10 @@ export const metadata: Metadata = {
     description:
       "Association engagée dans le développement territorial durable et l'intelligence des territoires au Maroc.",
   },
+  icons: {
+    icon: "/favicon.png",
+    apple: "/favicon.png",
+  },
 };
 
 const organizationJsonLd = {
