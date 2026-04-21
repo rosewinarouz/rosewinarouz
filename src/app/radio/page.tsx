@@ -1,22 +1,24 @@
-import Topbar from '@/components/dashboard/Topbar';
-import RadioFeatured from './components/RadioFeatured';
-import RadioMediaGrid from './components/RadioMediaGrid';
-import RadioThematics from './components/RadioThematics';
-import RadioFooter from './components/RadioFooter';
+import type { Metadata } from 'next';
+import RadioPageClient from './RadioPageClient';
 
-export const metadata = {
-    title: 'Radio Dashboard | Rose Winarouz',
-    description: 'Écoutez la voix de la province d\'Al Haouz en direct. Découvrez nos programmes, nos débats et la musique locale.',
+export const metadata: Metadata = {
+  title: 'Radio',
+  description:
+    "Écoutez la voix de la province d'Al Haouz. Podcasts et émissions sur le développement territorial, la justice sociale et la culture.",
+  openGraph: {
+    title: 'Radio | Rose Winarouz',
+    description: "Podcasts et émissions sur le développement territorial, la justice sociale et la culture à Al Haouz.",
+    type: 'website',
+    locale: 'fr_FR',
+    images: ['/radio rose winarouz.png'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Radio Rose Winarouz',
+    description: "La voix de la province d'Al Haouz – Podcasts et émissions.",
+  },
 };
 
-export default function RadioDashboardPage() {
-    return (
-        <>
-            <Topbar />
-            <RadioFeatured />
-            <RadioMediaGrid />
-            <RadioThematics />
-            <RadioFooter />
-        </>
-    );
+export default function RadioPage() {
+  return <RadioPageClient />;
 }

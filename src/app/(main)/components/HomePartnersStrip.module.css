@@ -1,0 +1,109 @@
+.section {
+    padding: var(--space-xl) 0 var(--space-2xl);
+    border-top: 1px solid var(--theme-border);
+}
+
+.inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2xl);
+}
+
+.labelColumn {
+    max-width: 260px;
+}
+
+.caption {
+    font-size: 0.95rem;
+    color: var(--theme-text-secondary);
+}
+
+.scrollerWrapper {
+    position: relative;
+    flex: 1;
+    overflow: hidden;
+}
+
+.scroller {
+    display: inline-flex;
+    gap: var(--space-md);
+    animation: marquee 30s linear infinite;
+    will-change: transform;
+}
+
+.logoChip {
+    padding: 0.5rem 1.3rem;
+    border-radius: 999px;
+    background: var(--theme-surface-solid);
+    border: 1px solid var(--theme-border);
+    box-shadow: 0 12px 32px var(--theme-shadow-heavy);
+}
+
+.logo {
+    width: 110px;
+    height: auto;
+    object-fit: contain;
+}
+
+.scrollerFadeLeft,
+.scrollerFadeRight {
+    position: absolute;
+    top: 0;
+    width: 80px;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.scrollerFadeLeft {
+    left: 0;
+    background: linear-gradient(90deg, var(--theme-bg) 0%, rgba(var(--theme-bg-rgb), 0) 100%);
+}
+
+.scrollerFadeRight {
+    right: 0;
+    background: linear-gradient(270deg, var(--theme-bg) 0%, rgba(var(--theme-bg-rgb), 0) 100%);
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* Reveal animation */
+.reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    filter: blur(4px);
+    transition:
+        opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1),
+        transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1),
+        filter 0.8s ease-out;
+}
+
+.animateIn {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+}
+
+@media (max-width: 768px) {
+    .section {
+        padding-top: var(--space-lg);
+    }
+
+    .inner {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .labelColumn {
+        max-width: none;
+    }
+}

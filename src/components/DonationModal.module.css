@@ -1,0 +1,205 @@
+/* ========= DONATION MODAL ========= */
+.modalBackdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    padding: var(--space-xl);
+}
+
+.modalCard {
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+    background: rgba(var(--theme-bg-rgb), 0.95);
+    border: 1px solid var(--theme-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-2xl);
+    box-shadow: 0 32px 80px var(--theme-shadow-heavy);
+    overflow: hidden;
+}
+
+.modalCard::before {
+    content: '';
+    position: absolute;
+    top: -80px;
+    right: -40px;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(var(--rw-gold-rgb), 0.2), transparent 70%);
+    pointer-events: none;
+}
+
+.closeBtn {
+    position: absolute;
+    top: var(--space-md);
+    right: var(--space-md);
+    background: var(--theme-btn-subtle);
+    border: 1px solid var(--theme-border);
+    color: var(--theme-text-muted);
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: all 0.2s ease;
+}
+
+.closeBtn:hover {
+    background: var(--theme-btn-subtle-hover);
+    color: var(--theme-text);
+}
+
+.modalHeartIcon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: rgba(var(--rw-gold-rgb), 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--rw-gold);
+    margin: 0 auto var(--space-lg);
+}
+
+.modalTitle {
+    font-family: var(--font-clash);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--theme-text);
+    text-align: center;
+    margin-bottom: var(--space-xs);
+}
+
+.modalSubtitle {
+    text-align: center;
+    color: var(--theme-text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: var(--space-xl);
+}
+
+.modalAmounts {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-sm);
+    margin-bottom: var(--space-lg);
+}
+
+.modalAmountBtn {
+    padding: 0.65rem 0;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--theme-border);
+    background: transparent;
+    color: var(--theme-text-secondary);
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+}
+
+.modalAmountBtn:hover {
+    border-color: rgba(var(--rw-gold-rgb), 0.5);
+    color: var(--rw-gold);
+    background: rgba(var(--rw-gold-rgb), 0.06);
+}
+
+.modalAmountBtnActive {
+    background: var(--rw-gold) !important;
+    border-color: var(--rw-gold) !important;
+    color: var(--rw-charcoal) !important;
+    box-shadow: 0 4px 14px rgba(var(--rw-gold-rgb), 0.3);
+}
+
+[data-theme="light"] .modalAmountBtnActive {
+    color: var(--rw-white) !important;
+}
+
+.customInput {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--theme-border);
+    background: var(--theme-input-bg);
+    color: var(--theme-text);
+    font-size: 1rem;
+    font-family: inherit;
+    margin-bottom: var(--space-lg);
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.customInput::placeholder {
+    color: var(--theme-text-faint);
+}
+
+.customInput:focus {
+    border-color: rgba(var(--rw-gold-rgb), 0.5);
+}
+
+.inputError {
+    border-color: #e74c3c !important;
+    background: rgba(231, 76, 60, 0.05) !important;
+}
+
+.errorText {
+    color: #e74c3c;
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-top: calc(-1 * var(--space-md));
+    margin-bottom: var(--space-md);
+    text-align: left;
+    width: 100%;
+}
+
+.modalDonateBtn {
+    width: 100%;
+    padding: 0.85rem;
+    border-radius: 999px;
+    border: none;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    color: var(--rw-charcoal);
+    background: var(--rw-gold);
+    box-shadow: 0 8px 24px rgba(var(--rw-gold-rgb), 0.4);
+    font-family: inherit;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
+    margin-bottom: var(--space-md);
+}
+
+[data-theme="light"] .modalDonateBtn {
+    color: var(--rw-white);
+}
+
+.modalDonateBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(var(--rw-gold-rgb), 0.5);
+}
+
+.modalSecure {
+    text-align: center;
+    font-size: 0.78rem;
+    color: var(--theme-text-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+@media (max-width: 600px) {
+    .modalAmounts {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

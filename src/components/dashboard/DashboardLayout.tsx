@@ -1,4 +1,10 @@
+'use client';
+
+import { useState } from 'react';
 import Sidebar from '@/components/dashboard/Sidebar';
+import MobileNav from '@/components/dashboard/MobileNav';
+import DonationModal from '@/components/DonationModal';
+import GsapScrollConfig from '@/components/GsapScrollConfig';
 import styles from '@/components/dashboard/DashboardLayout.module.css';
 
 export default function DashboardLayout({
@@ -6,12 +12,22 @@ export default function DashboardLayout({
 }: {
     children: React.ReactNode;
 }) {
+    const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
+
     return (
         <div className={styles.radioApp}>
-            <Sidebar />
-            <div className={styles.mainContent}>
+            <GsapScrollConfig />
+            <a href="#main-content" className="skip-link">Passer au contenu principal</a>
+            <Sidebar onOpenDonation={() => setIsDonationModalOpen(true)} />
+            <main id="main-content" className={styles.mainContent}>
                 {children}
-            </div>
+            </main>
+            <MobileNav onOpenDonation={() => setIsDonationModalOpen(true)} />
+
+            <DonationModal
+                isOpen={isDonationModalOpen}
+                onClose={() => setIsDonationModalOpen(false)}
+            />
         </div>
     );
 }

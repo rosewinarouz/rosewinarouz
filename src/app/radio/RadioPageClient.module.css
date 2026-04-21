@@ -1,0 +1,25 @@
+.wrap {
+  padding-bottom: 120px;
+}
+
+.heroSection {
+  position: relative;
+  width: 100%;
+}
+
+.searchSection {
+  margin: calc(var(--space-2xl) * -1) 0 var(--space-xl);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .wrap {
+    padding-bottom: 100px;
+  }
+
+  .searchSection {
+    margin: var(--space-md) 0;
+  }
+}

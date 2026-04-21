@@ -1,68 +1,134 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useLayoutEffect } from 'react';
+import Link from 'next/link';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import styles from './HomeProjets.module.css';
+import { projectsData } from '../projects/data';
+import ProjectCard from './ProjectCard';
 
-const projets = [
-    { id: 'p1', title: 'Coopérative Féminine de Tissage', category: 'Autonomisation', time: 'En cours', image: '/rose-hill-placeholder.jpg' },
-    { id: 'p2', title: 'Reboisement Haut Atlas', category: 'Environnement', time: 'Achevé 2023', image: '/rose-hill-placeholder.jpg' },
-    { id: 'p3', title: 'Soutien Scolaire Rural', category: 'Éducation', time: 'Phase 2', image: '/rose-hill-placeholder.jpg' },
-    { id: 'p4', title: 'Eau Potable Douar', category: 'Infrastructure', time: 'En cours', image: '/rose-hill-placeholder.jpg' },
-];
+gsap.registerPlugin(ScrollTrigger);
+
+// Highlighting 4 specific projects as requested
+const highlightedSlugs = ['reconstruction', 'prescolaire', 'entrepreneuriat', 'sante'];
+const highlightedProjects = highlightedSlugs
+    .map(slug => projectsData.find(p => p.slug === slug))
+    .filter(Boolean);
 
 export default function HomeProjets() {
     const containerRef = useRef<HTMLDivElement>(null);
+    const trackRef = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add(styles.animateIn);
+    useLayoutEffect(() => {
+        const ctx = gsap.context(() => {
+            const root = containerRef.current;
+            if (!root) return;
+
+            // Header reveal
+            const header = root.querySelector('header');
+            if (header) {
+                gsap.fromTo(header,
+                    { autoAlpha: 0, y: 30 },
+                    {
+                        autoAlpha: 1, y: 0, duration: 0.8, ease: 'power3.out',
+                        scrollTrigger: { trigger: header, start: 'top 85%' }
                     }
-                });
-            },
-            { threshold: 0.1 }
-        );
+                );
+            }
 
-        const elements = containerRef.current?.querySelectorAll(`.${styles.reveal}`);
-        elements?.forEach((el) => observer.observe(el));
+            // Cards stagger
+            const cards = root.querySelectorAll(`.${styles.homeProjectCard}`);
+            if (cards.length > 0) {
+                gsap.fromTo(cards,
+                    { autoAlpha: 0, y: 40, scale: 0.95 },
+                    {
+                        autoAlpha: 1, y: 0, scale: 1,
+                        duration: 0.7, stagger: 0.12, ease: 'power3.out',
+                        scrollTrigger: { trigger: trackRef.current, start: 'top 85%' }
+                    }
+                );
+            }
 
-        return () => observer.disconnect();
+            // CTA reveal
+            const cta = root.querySelector(`.${styles.ctaContainer}`);
+            if (cta) {
+                gsap.fromTo(cta,
+                    { autoAlpha: 0, y: 20 },
+                    {
+                        autoAlpha: 1, y: 0, duration: 0.6, ease: 'power2.out',
+                        scrollTrigger: { trigger: cta, start: 'top 90%' }
+                    }
+                );
+            }
+        }, containerRef);
+
+        return () => ctx.revert();
     }, []);
+
+    const handleScroll = (direction: 'left' | 'right') => {
+        if (!trackRef.current) return;
+
+        const scrollAmount = 350;
+        const currentScroll = trackRef.current.scrollLeft;
+        const targetScroll = direction === 'left'
+            ? currentScroll - scrollAmount
+            : currentScroll + scrollAmount;
+
+        trackRef.current.scrollTo({
+            left: targetScroll,
+            behavior: 'smooth'
+        });
+    };
 
     return (
         <section ref={containerRef} className={styles.section}>
             <header className={styles.header}>
-                <h2 className={`${styles.title} ${styles.reveal}`}>Derniers Projets</h2>
-                <div className={`${styles.navArrows} ${styles.reveal}`}>
-                    <button className={styles.arrowBtn} aria-label="Précédent">&larr;</button>
-                    <button className={styles.arrowBtn} aria-label="Suivant">&rarr;</button>
+                <div className={styles.headerTitles}>
+                    <span className="sectionEyebrow">Nos Réalisations</span>
+                    <h2 className="sectionTitle">
+                        Derniers <span>Projets</span>
+                    </h2>
+                </div>
+                <div className={styles.navArrows}>
+                    <button
+                        className={styles.arrowBtn}
+                        aria-label="Précédent"
+                        onClick={() => handleScroll('left')}
+                    >
+                        &larr;
+                    </button>
+                    <button
+                        className={styles.arrowBtn}
+                        aria-label="Suivant"
+                        onClick={() => handleScroll('right')}
+                    >
+                        &rarr;
+                    </button>
                 </div>
             </header>
 
-            <div className={`${styles.track} ${styles.reveal} ${styles.delay1}`}>
-                {projets.map((projet) => (
-                    <div key={projet.id} className={styles.projetCard}>
-                        <div className={styles.imageBg} style={{ backgroundImage: `url(${projet.image})` }} />
-                        <div className={styles.overlay} />
-
-                        <div className={styles.content}>
-                            <span className={styles.badge}>{projet.category}</span>
-                            <h3 className={styles.cardTitle}>{projet.title}</h3>
-
-                            <div className={styles.cardFooter}>
-                                <span className={styles.timeLabel}>{projet.time}</span>
-                                <button className={styles.linkIcon} aria-label="Voir le projet">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                                        <polyline points="12 5 19 12 12 19"></polyline>
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+            <div
+                ref={trackRef}
+                className={styles.track}
+            >
+                {highlightedProjects.map((projet) => (
+                    <ProjectCard
+                        key={projet!.slug}
+                        project={projet!}
+                        className={styles.homeProjectCard}
+                    />
                 ))}
+            </div>
+
+            <div className={styles.ctaContainer}>
+                <Link href="/projects" className={styles.viewAllBtn}>
+                    <span>Découvrir tous nos projets</span>
+                    <svg className={styles.btnArrow} width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <line x1="5" y1="12" x2="19" y2="12" />
+                        <polyline points="12 5 19 12 12 19" />
+                    </svg>
+                </Link>
             </div>
         </section>
     );

@@ -1,0 +1,100 @@
+.heroContainer {
+    position: relative;
+    height: 70vh;
+    min-height: 500px;
+    width: calc(100% + var(--space-xl) * 2);
+    margin-left: calc(var(--space-xl) * -1);
+    margin-right: calc(var(--space-xl) * -1);
+    /* Negative margin to pull hero behind the 160px Topbar area and viewport padding */
+    margin-top: calc(-160px - var(--space-xl));
+    overflow: hidden;
+    background: var(--theme-bg);
+    border-bottom: 1px solid var(--theme-border);
+}
+
+.imageWrapper {
+    position: absolute;
+    top: -10%;
+    /* Give room for parallax pulling down */
+    left: 0;
+    width: 100%;
+    height: 120%;
+    /* Taller than container for parallax travel */
+    z-index: 0;
+    will-change: transform;
+}
+
+.backgroundImage {
+    object-fit: cover;
+    object-position: center 30%;
+    /* Focus slightly above center */
+}
+
+/* Gradient to blend smoothly into the next section */
+.bottomGradient {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 300px;
+    background: linear-gradient(to top, var(--theme-bg) 0%, transparent 100%);
+    z-index: 2;
+    pointer-events: none;
+}
+
+.contentOverlay {
+    position: absolute;
+    /* Adjusted to center visually between top of page and the overlapping card */
+    top: 62%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    z-index: 10;
+    text-align: center;
+    padding: 0 var(--space-xl);
+}
+
+.textContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mainTitle {
+    font-size: clamp(2.4rem, 8vw, 4.5rem);
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    text-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.mainTitle span {
+    color: var(--rw-gold);
+    display: block;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .heroContainer {
+        height: 50vh;
+        min-height: 350px;
+        /* Match mobile container padding to maintain full-bleed without overflow */
+        width: calc(100% + var(--space-lg) * 2);
+        margin-left: calc(var(--space-lg) * -1);
+        margin-right: calc(var(--space-lg) * -1);
+        margin-top: 0;
+    }
+
+    .contentOverlay {
+        /* Centered in the visible gap (50vh - 80px overlap) */
+        top: 42%;
+    }
+
+    .mainTitle {
+        font-size: clamp(1.4rem, 8vw, 2rem);
+        transform: scale(0.9);
+    }
+}

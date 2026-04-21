@@ -1,0 +1,98 @@
+.preloaderContainer {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #0a0f0a;
+    /* Deep premium backgound */
+    z-index: 999999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    visibility: hidden;
+    /* GSAP will reveal it */
+}
+
+/* Subtle radial gradient overlay for premium feel */
+.preloaderContainer::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(10, 15, 10, 0) 0%, rgba(0, 0, 0, 0.8) 100%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.content {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2xl, 3rem);
+}
+
+.logoWrapper {
+    width: 200px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    overflow: hidden;
+}
+
+.logoImage {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    object-position: top;
+}
+
+.textWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.subtitle {
+    font-family: var(--font-main, sans-serif);
+    font-weight: 500;
+    font-size: 0.95rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--rw-gold, #c19b46);
+    opacity: 0.9;
+}
+
+.progressLine {
+    width: 140px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+    border-radius: 2px;
+}
+
+.progressFill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(90deg, transparent, var(--rw-gold, #c19b46), transparent);
+    animation: loadingBar 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    transform: translateX(-100%);
+}
+
+@keyframes loadingBar {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}

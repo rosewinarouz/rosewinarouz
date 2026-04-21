@@ -1,0 +1,77 @@
+.section {
+    padding: var(--space-xl) 0 var(--space-4xl);
+    position: relative;
+    overflow: hidden;
+    background: transparent;
+    margin-left: calc(-1 * var(--space-xl));
+    margin-right: calc(-1 * var(--space-xl));
+    width: auto;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--space-xl);
+}
+
+.sectionHeader {
+    text-align: center;
+    margin-bottom: var(--space-3xl);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-xs);
+}
+
+.label {
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--rw-gold);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.label::before,
+.label::after {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(var(--rw-gold-rgb), 0.8), transparent);
+}
+
+.label::before {
+    background: linear-gradient(270deg, rgba(var(--rw-gold-rgb), 0.8), transparent);
+}
+
+.sectionTitle {
+    font-family: var(--font-clash);
+    font-size: clamp(2rem, 3vw, 2.7rem);
+    font-weight: 700;
+    color: var(--theme-text);
+}
+
+.gold {
+    color: var(--rw-gold);
+}
+
+.divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--theme-border), transparent);
+    margin: var(--space-2xl) 0;
+    width: 100%;
+}
+
+.fullWidthWrapper {
+    width: 100%;
+    position: relative;
+    /* Optional: add slight padding to mobile so it isn't literally touching screen bounds completely */
+    padding: 0 var(--space-sm);
+}
+
+@media (min-width: 768px) {
+    .fullWidthWrapper {
+        padding: 0;
+    }
+}

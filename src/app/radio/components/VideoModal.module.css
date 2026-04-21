@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-xl);
+    animation: fadeIn 0.3s ease;
+}
+
+.modal {
+    width: 100%;
+    max-width: 1000px;
+    background: var(--theme-surface-solid);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    position: relative;
+    box-shadow:
+        20px 20px 60px var(--theme-shadow-heavy),
+        -10px -10px 40px var(--theme-btn-subtle);
+    border: 1px solid var(--theme-border);
+    animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.header {
+    padding: var(--space-lg) var(--space-xl);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--theme-border);
+}
+
+.title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--theme-text);
+}
+
+.closeBtn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--theme-btn-subtle);
+    border: 1px solid var(--theme-border);
+    color: var(--rw-gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition-base);
+    box-shadow:
+        4px 4px 10px var(--theme-shadow),
+        -2px -2px 8px var(--theme-btn-subtle);
+}
+
+.closeBtn:hover {
+    transform: scale(1.1);
+    background: var(--theme-btn-subtle-hover);
+    box-shadow:
+        6px 6px 12px var(--theme-shadow-heavy),
+        -3px -3px 10px var(--theme-btn-subtle);
+}
+
+.videoContainer {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: #000;
+}
+
+.videoContainer iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .modal {
+        border-radius: var(--radius-lg);
+    }
+
+    .title {
+        font-size: 1.1rem;
+    }
+}

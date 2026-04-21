@@ -1,13 +1,34 @@
+import { useState } from 'react';
+import DonationModal from '@/components/DonationModal';
 import styles from './RadioFooter.module.css';
 
 export default function RadioFooter() {
+    const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
+
     return (
         <footer className={styles.footer}>
-            <div className={styles.ctaBox}>
-                <h2 className={styles.title}>Soutenez une parole libre et engagée</h2>
-                <p className={styles.subtitle}>Votre contribution soutient nos productions indépendantes.</p>
-                <button className={styles.donateBtn}>Faire un don</button>
+            <div className={styles.ctaSection}>
+                {/* Decorative background elements */}
+                <div className={styles.glowBlob1} />
+                <div className={styles.glowBlob2} />
+
+                <div className={styles.ctaBox}>
+                    <h2 className={styles.title}>Soutenez une parole libre et engagée</h2>
+                    <p className={styles.subtitle}>Votre contribution soutient nos productions indépendantes.</p>
+                    <button
+                        className={styles.donateBtn}
+                        onClick={() => setIsDonationModalOpen(true)}
+                    >
+                        <span>Faire un don</span>
+                        <div className={styles.btnGlow} />
+                    </button>
+                </div>
             </div>
+
+            <DonationModal
+                isOpen={isDonationModalOpen}
+                onClose={() => setIsDonationModalOpen(false)}
+            />
 
             <div className={styles.linksRow}>
                 <nav className={styles.nav}>

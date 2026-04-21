@@ -25,20 +25,29 @@ export default function HomeContact() {
         return () => observer.disconnect();
     }, []);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        // Manual validation check
+        const form = e.currentTarget;
+        if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
+        }
+
         setFormStatus('submitting');
         setTimeout(() => {
             setFormStatus('success');
-            setTimeout(() => setFormStatus('idle'), 3000);
+            // Success state persists for 5 seconds to ensure visibility
+            setTimeout(() => setFormStatus('idle'), 5000);
         }, 1500);
     };
 
     return (
-        <section ref={containerRef} className={styles.section}>
+        <section id="contact-section" ref={containerRef} className={styles.section}>
             <div className={styles.container}>
                 <div className={`${styles.infoCard} ${styles.reveal}`}>
-                    <h2 className={styles.title}>Rejoignez le Mouvement</h2>
+                    <h2 className="sectionTitle">Rejoignez le <span>Mouvement</span></h2>
                     <p className={styles.description}>
                         Que vous souhaitiez faire un don, devenir bénévole ou proposer un partenariat,
                         notre équipe est à votre écoute.
@@ -102,11 +111,18 @@ export default function HomeContact() {
                         type="submit"
                         className={`${styles.submitBtn} ${formStatus === 'success' ? styles.success : ''}`}
                         disabled={formStatus === 'submitting'}
+                        data-testid="contact-submit-button"
                     >
                         {formStatus === 'idle' && 'Envoyer le message'}
                         {formStatus === 'submitting' && 'Envoi en cours...'}
-                        {formStatus === 'success' && 'Message envoyé !'}
+                        {formStatus === 'success' && '✓ Message envoyé avec succès !'}
                     </button>
+
+                    {formStatus === 'success' && (
+                        <div className={styles.successToast} data-testid="contact-success-message">
+                            <strong>Merci !</strong> Votre message a été envoyé avec succès. Nous vous répondrons dans les plus brefs délais.
+                        </div>
+                    )}
                 </form>
             </div>
         </section>
