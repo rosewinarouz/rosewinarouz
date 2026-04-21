@@ -72,6 +72,7 @@ export default function Footer() {
                             <li><Link href="/" className={styles.linkItem}>Accueil</Link></li>
                             <li><Link href="/about" className={styles.linkItem}>À Propos</Link></li>
                             <li><Link href="/projects" className={styles.linkItem}>Projets</Link></li>
+                            <li><Link href="/journal" className={styles.linkItem}>Journal</Link></li>
                             <li><Link href="/radio" className={styles.linkItem}>Radio</Link></li>
                             <li><Link href="/contact" className={styles.linkItem}>Contact</Link></li>
                         </ul>

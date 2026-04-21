@@ -18,9 +18,11 @@ export default function ProjectCard({ project, className = '' }: ProjectCardProp
         }
     };
 
-    const imageUrl = project.imageCount > 0
-        ? `${project.imageDir}/rose-winarouz-1.jpg`
-        : '/logo - RGB.png';
+    const imageUrl = project.coverImage
+        ? project.coverImage
+        : (project.imageCount > 0
+            ? `${project.imageDir}/rose-winarouz-1.jpg`
+            : '/logo - RGB.png');
 
     return (
         <Link

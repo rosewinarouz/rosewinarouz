@@ -14,6 +14,7 @@ export interface ProjectData {
     color: string;
     imageDir: string;
     imageCount: number;
+    coverImage?: string;
 }
 
 /** Generate image paths for a project using rose-winarouz-N.jpg convention */
@@ -55,6 +56,7 @@ export const projectsData: ProjectData[] = [
         color: '#1A3A5C',
         imageDir: '/project images/prescolaire',
         imageCount: 8,
+        coverImage: '/project images/prescolaire/rose-winarouz-3.jpg',
     },
     {
         slug: 'orientation',

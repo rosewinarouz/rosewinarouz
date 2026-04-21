@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
             description: project.description,
             type: 'article',
             locale: 'fr_FR',
-            images: project.imageCount > 0 ? [`${project.imageDir}/rose-winarouz-1.jpg`] : [],
+            images: project.coverImage ? [project.coverImage] : (project.imageCount > 0 ? [`${project.imageDir}/rose-winarouz-1.jpg`] : []),
         },
         twitter: {
             card: 'summary_large_image',
